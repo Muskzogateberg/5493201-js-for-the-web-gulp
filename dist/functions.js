@@ -1,18 +1,22 @@
-const newsLetterButton = document.getElementById('newsletter-button');
-const newsLetterSection = document.getElementById('newsletter-section');
-const newsLetterEmail = document.getElementById('newsletter-email');
+"use strict";
 
-let sentEmail = false;
+var newsLetterButton = document.getElementById('newsletter-button');
+var newsLetterSection = document.getElementById('newsletter-section');
+var newsLetterEmail = document.getElementById('newsletter-email');
+var sentEmail = false;
+newsLetterButton.addEventListener('click', function () {
+  var newParagraph = document.createElement('p');
 
-newsLetterButton.addEventListener('click', () => {
-  let newParagraph = document.createElement('p');
   if (sentEmail) {
     return;
   }
-  const findAlert = document.getElementById('alert');
+
+  var findAlert = document.getElementById('alert');
+
   if (findAlert) {
     findAlert.parentElement.removeChild(findAlert);
   }
+
   if (!newsLetterEmail.value) {
     newParagraph.textContent = 'Please enter something!';
     newParagraph.classList.add('alert-danger', 'w-100', 'p-2');
@@ -20,6 +24,7 @@ newsLetterButton.addEventListener('click', () => {
     newsLetterSection.appendChild(newParagraph);
     return;
   }
+
   newParagraph.textContent = 'E-mail address successfully submitted!';
   newParagraph.classList.add('alert-success', 'w-100', 'p-2');
   newsLetterSection.appendChild(newParagraph);
