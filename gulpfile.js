@@ -3,6 +3,7 @@ const jshint = require('gulp-jshint');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const runSequence = require('gulp4-run-sequence');
+const { watch } = require('gulp');
 
 gulp.task('processHTML', () => {
     return gulp.src('*.html')
@@ -23,11 +24,17 @@ gulp.task('babelPolyfill', () => {
     .pipe(gulp.dest('dist/node_modules/babel-polyfill'));
 });
 
-gulp.task('processImages', () => {
+gulp.task('processIMG', () => {
     return gulp.src('./images/*.svg')
     .pipe(gulp.dest('dist/images'))
 });
 
 gulp.task('default', (callback) => {
-    runSequence(['processHTML', 'processJS', 'babelPolyfill', 'processImages'], callback);
+    runSequence(['processHTML', 'processJS', 'babelPolyfill', 'processSVG'], 'watch', callback);
+});
+
+gulp.task('watch', () => {
+    gulp.watch('*.js', gulp.series('processJS'));
+    gulp.watch('*.html', gulp.series('processHTML'));
+    gulp.watch('images/*', gulp.series('processIMG'))
 });
