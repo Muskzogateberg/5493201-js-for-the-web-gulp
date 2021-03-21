@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const jshint = require('gulp-jshint');
 const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
 
 gulp.task('processHTML', () => {
     gulp.src('*.html')
@@ -12,6 +13,7 @@ gulp.task('processJS', () => {
     .pipe(jshint( {esversion: 8} ))
     .pipe(jshint.reporter('default'))
     .pipe(babel({ presets: ['@babel/preset-env']}))
+    .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
 
